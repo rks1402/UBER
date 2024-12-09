@@ -39,6 +39,8 @@ The request body must be in JSON format and include the following fields:
     "email": "john.doe@example.com",
     "password": "securePassword123"
 }
+```
+---
 
 ### **Validation Rules**
 - **`fullname.firstname`**: Must be at least 3 characters long.
@@ -67,6 +69,7 @@ The request body must be in JSON format and include the following fields:
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
+```
 
 #### **Validation Errors**
 **Status Code**: `400 Bad Request`
@@ -87,6 +90,7 @@ The request body must be in JSON format and include the following fields:
         }
     ]
 }
+```
 
 #### **Internal Server Error**
 **Status Code**: `500 Internal Server Error`
@@ -96,6 +100,9 @@ The request body must be in JSON format and include the following fields:
 {
     "message": "An error occurred while processing your request."
 }
+```
+
+---
 
 ### **Notes**
 - Ensure that the `Content-Type` header is set to `application/json` when sending the request.
