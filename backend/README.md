@@ -40,20 +40,21 @@ The request body must be in JSON format and include the following fields:
     "password": "securePassword123"
 }
 
-Validation Rules
-	•	fullname.firstname: Must be at least 3 characters long.
-	•	fullname.lastname: Optional but must be at least 3 characters if provided.
-	•	email: Must be a valid email format.
-	•	password: Must be at least 6 characters long.
+### **Validation Rules**
+- **`fullname.firstname`**: Must be at least 3 characters long.
+- **`fullname.lastname`**: Optional but must be at least 3 characters if provided.
+- **`email`**: Must be a valid email format.
+- **`password`**: Must be at least 6 characters long.
 
-Response
+---
 
-Success
+### **Response**
 
-Status Code: 201 Created
+#### **Success**
+**Status Code**: `201 Created`
 
-Response Example:
-
+**Response Example:**
+```json
 {
     "message": "User created successfully",
     "user": {
@@ -67,12 +68,11 @@ Response Example:
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 
-Validation Errors
+#### **Validation Errors**
+**Status Code**: `400 Bad Request`
 
-Status Code: 400 Bad Request
-
-Response Example:
-
+**Response Example:**
+```json
 {
     "errors": [
         {
@@ -88,45 +88,53 @@ Response Example:
     ]
 }
 
-Internal Server Error
+#### **Internal Server Error**
+**Status Code**: `500 Internal Server Error`
 
-Status Code: 500 Internal Server Error
-
-Response Example:
-
+**Response Example:**
+```json
 {
     "message": "An error occurred while processing your request."
 }
 
-Notes
-	•	Ensure that the Content-Type header is set to application/json when sending the request.
-	•	The JWT token in the success response can be used for authentication in other endpoints.
-	•	The password field is securely hashed before being stored in the database and is not retrievable in its original form.
+### **Notes**
+- Ensure that the `Content-Type` header is set to `application/json` when sending the request.
+- The JWT token in the success response can be used for authentication in other endpoints.
+- The `password` field is securely hashed before being stored in the database and is not retrievable in its original form.
 
-Additional Details
+---
 
-Controller Logic
-	•	The registerUser method in user.controller.js:
-	•	Validates incoming request data using express-validator.
-	•	Logs the request body (optional for debugging).
-	•	Hashes the user’s password using the static hashPassword method of the user.model.js.
-	•	Calls the createUser method in user.service.js to save the user in the database.
-	•	Generates a JWT token for the user using the generateAuthToken method in the user model.
+### **Additional Details**
 
-Model Information
-	•	The user.model.js defines a Mongoose schema with the following fields:
-	•	fullname.firstname (required, minimum length: 3).
-	•	fullname.lastname (optional, minimum length: 3).
-	•	email (required, unique, minimum length: 5).
-	•	password (required, hashed, not returned in queries).
+#### **Controller Logic**
+- The `registerUser` method in `user.controller.js`:
+  - Validates incoming request data using `express-validator`.
+  - Logs the request body (optional for debugging).
+  - Hashes the user’s password using the static `hashPassword` method of the `user.model.js`.
+  - Calls the `createUser` method in `user.service.js` to save the user in the database.
+  - Generates a JWT token for the user using the `generateAuthToken` method in the user model.
 
-Service Logic
-	•	The createUser method in user.service.js ensures all required fields are present and creates the user in the database.
+### **Model Information**
+- The `user.model.js` defines a Mongoose schema with the following fields:
+  - **`fullname.firstname`**: Required, minimum length of 3 characters.
+  - **`fullname.lastname`**: Optional, minimum length of 3 characters.
+  - **`email`**: Required, unique, minimum length of 5 characters.
+  - **`password`**: Required, hashed, and not returned in queries.
 
-Dependencies
-	•	Libraries Used:
-	•	express
-	•	express-validator for request validation.
-	•	bcrypt for hashing passwords.
-	•	jsonwebtoken for generating authentication tokens.
-	•	mongoose for database modeling and interaction.
+---
+
+### **Service Logic**
+- The `createUser` method in `user.service.js`:
+  - Ensures all required fields are present.
+  - Creates the user in the database.
+
+---
+
+### **Dependencies**
+
+#### **Libraries Used:**
+- **`express`**: For building the REST API.
+- **`express-validator`**: For request validation.
+- **`bcrypt`**: For hashing passwords.
+- **`jsonwebtoken`**: For generating authentication tokens.
+- **`mongoose`**: For database modeling and interaction.
