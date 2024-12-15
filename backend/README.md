@@ -179,12 +179,11 @@ The request body must be in JSON format and include the following fields:
     "email": "john.doe@example.com",
     "password": "securePassword123"
 }
+```
 
 ---
 
 ### **Validation Rules**
-- **`fullname.firstname`**: Must be at least 3 characters long.
-- **`fullname.lastname`**: Optional but must be at least 3 characters if provided.
 - **`email`**: Must be a valid email format.
 - **`password`**: Must be at least 6 characters long.
 
@@ -193,7 +192,7 @@ The request body must be in JSON format and include the following fields:
 ### **Response**
 
 #### **Success**
-**Status Code**: `201 Created`
+**Status Code**: `200 OK`
 
 **Response Example:**
 ```json
