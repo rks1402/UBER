@@ -145,3 +145,103 @@ The request body must be in JSON format and include the following fields:
 - **`bcrypt`**: For hashing passwords.
 - **`jsonwebtoken`**: For generating authentication tokens.
 - **`mongoose`**: For database modeling and interaction.
+
+
+## Endpoint: `/users/login`
+
+This endpoint is used to authenticate an existing user and provide them with a JWT token for accessing protected resources.
+
+---
+
+### **HTTP Method**
+**POST**
+
+---
+
+### **Description**
+The `/users/login` endpoint allows a user to log in by submitting their email and password. If the credentials are valid, a JSON Web Token (JWT) is returned along with the user details.
+
+---
+
+### **Request Body**
+The request body must be in JSON format and include the following fields:
+
+| Field       | Type   | Required | Description                      |
+|-------------|--------|----------|----------------------------------|
+| `email`     | String | Yes      | The user's email address.        |
+| `password`  | String | Yes      | The user's password.             |
+
+---
+
+### **Request Example**
+```json
+{
+    "email": "john.doe@example.com",
+    "password": "securePassword123"
+}
+
+---
+
+### **Validation Rules**
+- **`fullname.firstname`**: Must be at least 3 characters long.
+- **`fullname.lastname`**: Optional but must be at least 3 characters if provided.
+- **`email`**: Must be a valid email format.
+- **`password`**: Must be at least 6 characters long.
+
+---
+
+### **Response**
+
+#### **Success**
+**Status Code**: `201 Created`
+
+**Response Example:**
+```json
+{
+    "message": "User logged in successfully",
+    "user": {
+        "_id": "64f0c59b6d5b1f1f9c7e8d9c",
+        "fullname": {
+            "firstname": "John",
+            "lastname": "Doe"
+        },
+        "email": "john.doe@example.com"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+#### **Validation Errors**
+**Status Code**: `400 Bad Request`
+
+**Response Example:**
+```json
+{
+    "errors": [
+        {
+            "msg": "Please enter a valid email address",
+            "param": "email",
+            "location": "body"
+        }
+    ]
+}
+```
+#### **Authentication Errors**
+**Status Code**: `401 Unauthorized`
+
+**Response Example:**
+```json
+{
+    "message": "Invalid email or password"
+}
+```
+
+#### **Internal Server Error**
+**Status Code**: `500 Internal Server Error`
+
+**Response Example:**
+```json
+{
+    "message": "An error occurred while processing your request."
+}
+```
